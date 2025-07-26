@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Just Button</title>
+</head>
+<body>
+<h1>Just Button</h1>
+<button onclick="ping()">Ping!</button>
+<p id="response"></p>
+
+<script>
+    function ping() {
+        fetch('/ping')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('response').textContent = data;
+            })
+            .catch(err => {
+                document.getElementById('response').textContent = 'Error: ' + err;
+            });
+    }
+</script>
+</body>
+</html>
