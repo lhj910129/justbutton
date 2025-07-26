@@ -1,25 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Just Button</title>
+    <title>Justbutton</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        button {
+            padding: 20px 40px;
+            font-size: 24px;
+            border: none;
+            border-radius: 10px;
+            background-color: orange;
+            color: white;
+            cursor: pointer;
+        }
+        #response {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #444;
+        }
+    </style>
 </head>
 <body>
-<h1>Just Button</h1>
-<button onclick="ping()">Ping!</button>
-<p id="response"></p>
+
+<h1>Justbutton 🟠</h1>
+<button id="pingButton">눌러보세요</button>
+<div id="response"></div>
 
 <script>
-    function ping() {
-        fetch('/ping')
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('response').textContent = data;
-            })
-            .catch(err => {
-                document.getElementById('response').textContent = 'Error: ' + err;
-            });
-    }
+    document.getElementById("pingButton").addEventListener("click", () => {
+      fetch("/ping")
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById("response").innerText = `서버 응답: ${data}`;
+        })
+        .catch(err => {
+          document.getElementById("response").innerText = `오류 발생: ${err}`;
+        });
+    });
 </script>
+
 </body>
 </html>
