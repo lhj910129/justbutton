@@ -6,13 +6,9 @@ spring:
     name: justbutton
   datasource:
     url: jdbc:mysql://localhost:3306/justbutton
-    username: root
+    username: hlee
     password: Dlgywls910129!
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
 
   jpa:
     hibernate:
@@ -22,3 +18,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  logging:
+    level:
+      com.justbutton: DEBUG
+      org.springframework.web: DEBUG
+    file:
+      name: /app/logs/justbutton.log
