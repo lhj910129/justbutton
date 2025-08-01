@@ -1,0 +1,30 @@
+# Build 관련
+build/
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE 설정
+.idea/
+*.iml
+*.iws
+
+# OS 파일
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker 관련
+Dockerfile
+docker-compose.yml
+*.md
+
+# 로그 파일
+logs/
+*.log
+
+# 기타
+node_modules/
+.env

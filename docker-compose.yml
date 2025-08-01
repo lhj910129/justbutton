@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # MySQL 8.0 데이터베이스
+  mysql:
+    image: mysql:8.0
+    platform: linux/amd64  # M1 맥북 호환성을 위해
+    container_name: justbutton-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Dlgywls910129!
+      MYSQL_DATABASE: justbutton
+      MYSQL_USER: hlee
+      MYSQL_PASSWORD: Dlgywls910129!
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # 초기 데이터 (선택사항)
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - justbutton-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Spring Boot 애플리케이션
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: justbutton-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: pord
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/justbutton
+      SPRING_DATASOURCE_USERNAME: hlee
+      SPRING_DATASOURCE_PASSWORD: Dlgywls910129!
+    volumes:
+      - ./logs:/app/logs  # 로그 파일 호스트에 저장
+    networks:
+      - justbutton-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  justbutton-network:
+    driver: bridge

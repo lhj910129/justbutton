@@ -12,6 +12,6 @@ class PingController(
     @GetMapping("/ping")
     fun ping(): String {
         buttonClickRepository.save(ButtonClick()) // 클릭 기록 저장
-        return "pong"
+        return "참 잘했어요"
     }
 }
