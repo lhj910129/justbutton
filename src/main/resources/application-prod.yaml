@@ -14,7 +14,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    atabase-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
         format_sql: true
